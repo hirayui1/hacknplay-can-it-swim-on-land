@@ -1,17 +1,18 @@
 package com.company.project.data;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Getter
+@Setter
 @Service
 public class DataStore {
-  private final Map<DOMAIN, List<FeedItem>> feedItems = new HashMap<>();
+  private Map<DOMAIN, List<FeedItem>> feedItems = new HashMap<>();
   private final Map<DOMAIN, List<ExtractPayload>> urls = Map.of(
       DOMAIN.LAW, List.of(
           new ExtractPayload("https://en.wikipedia.org/", "#mp-itn b a"),

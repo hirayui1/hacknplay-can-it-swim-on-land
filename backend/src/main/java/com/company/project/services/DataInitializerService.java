@@ -16,21 +16,24 @@ import java.util.Map;
 public class DataInitializerService {
 
   private DataStore store;
+  private SerializerService serializer;
   private ProcessingService processingService;
   private AiTrashService aiTrashService;
 
   @PostConstruct
   void initialize() {
-    Map<DOMAIN, List<FeedItem>> headlines = store.getFeedItems();
-    for (DOMAIN value : DOMAIN.values()) {
-      headlines.put(value, store.getUrls().get(value).stream()
-          .map(ePayload -> processingService.processHeadlines(ePayload))
-          .flatMap(Collection::stream)
-          .map(headline -> new FeedItem(
-              headline,
-              aiTrashService.ruin(store.prepare_prompt(
-                  store.getPrompts().get(value), headline))
-          )).toList());
+    if (serializer.deserializeDataOnStartup() == 1) {
+      Map<DOMAIN, List<FeedItem>> headlines = store.getFeedItems();
+      for (DOMAIN value : DOMAIN.values()) {
+        headlines.put(value, store.getUrls().get(value).stream()
+            .map(ePayload -> processingService.processHeadlines(ePayload))
+            .flatMap(Collection::stream)
+            .map(headline -> new FeedItem(
+                headline,
+                aiTrashService.ruin(store.prepare_prompt(
+                    store.getPrompts().get(value), headline))
+            )).toList());
+      }
     }
   }
 }
