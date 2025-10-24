@@ -14,6 +14,27 @@
             min-height: 100vh;
         }
 
+        /* Header styles */
+        header {
+            background: #1f1f1f;
+            padding: 15px 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        header a {
+            color: #7ac7e3;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1em;
+            transition: color 0.2s;
+        }
+
+        header a:hover {
+            color: #a0dfff;
+        }
+
         h1 {
             color: #c0c0c0;
             text-align: center;
@@ -76,6 +97,14 @@
     </style>
 </head>
 <body>
+
+<header>
+    <a href="/law">Law</a>
+    <a href="/company">Company</a>
+    <a href="/marketing">Marketing</a>
+    <a href="/media">Media</a>
+</header>
+
 <h1>Today's Headlines</h1>
 <ul>
     <li th:each="item : ${feedItems}">
