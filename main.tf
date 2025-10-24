@@ -17,19 +17,26 @@ provider "scaleway" {
 
 resource "scaleway_container_namespace" "example_namespace" {
   name        = "test-namespace"
-  description = "Namespace for my simple NGINX example"
+  description = "Spring app test"
 }
 
-resource "scaleway_container" "nginx_web_server" {
-  name = "my-simple-nginx"
-  registry_image = "nginx:latest"
-  port = 80
-
-  min_scale = 1
+resource "scaleway_container" "spring_api_container" {
+  name = "spring-boot-api"
   namespace_id = scaleway_container_namespace.example_namespace.id
-}
+  registry_image = "rg.pl-waw.scw.cloud/test-namespace/app:latest"
+  port = 8080
+  cpu_limit    = 250
+  memory_limit = 512
+  min_scale    = 1
+  max_scale    = 2
 
-output "nginx_url" {
-  description = "The public URL for our NGINX web server."
-  value       = "https://${scaleway_container.nginx_web_server.domain_name}"
+  # environment_variables = {
+  #   "SPRING_DATASOURCE_URL"      = "jdbc:postgresql://${scaleway_rdb_instance.spring_db.endpoint_ip}:${scaleway_rdb_instance.spring_db.endpoint_port}/${scaleway_rdb_database.app_db.name}"
+  #   "SPRING_DATASOURCE_USERNAME" = scaleway_rdb_instance.spring_db.user_name
+  #   "SPRING_DATASOURCE_PASSWORD" = scaleway_rdb_instance.spring_db.password
+  # }
+  #
+  # depends_on = [
+  #   scaleway_rdb_instance.spring_db
+  # ]
 }
