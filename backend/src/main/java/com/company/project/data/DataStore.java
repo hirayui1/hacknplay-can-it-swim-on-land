@@ -13,8 +13,10 @@ public class DataStore {
   private final Map<DOMAIN, List<FeedItem>> feedItems = Map.of(
       DOMAIN.LAW, new ArrayList<>(10)
   );
-  private final Map<DOMAIN, List<String>> urls = Map.of(
-    DOMAIN.LAW, List.of("isap.sejm.gov.pl")
+  private final Map<DOMAIN, List<ExtractPayload>> urls = Map.of(
+    DOMAIN.LAW, List.of(
+        new ExtractPayload("isap.sejm.gov.pl", "TODO")
+      )
   );
   private final Map<DOMAIN, String> prompts = Map.of(
     DOMAIN.LAW, """

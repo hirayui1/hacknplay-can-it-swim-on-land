@@ -1,11 +1,12 @@
 package com.company.project.service;
 
+import com.company.project.data.ExtractPayload;
 import com.company.project.data.Headline;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProcessingService {
-  public Headline processheadline(String url) {
+  public Headline processheadline(ExtractPayload url) {
     return null;
   }
 }

@@ -22,7 +22,7 @@ public class DataInitializerService {
     Map<DOMAIN, List<FeedItem>> headlines = store.getFeedItems();
     for(DOMAIN value : DOMAIN.values()) {
       headlines.put(value, store.getUrls().get(value).stream()
-          .map(url -> processingService.processheadline(url))
+          .map(ePayload -> processingService.processheadline(ePayload))
           .map(headline -> new FeedItem(
               headline,
               aiTrashService.ruin(store.prepare_prompt(
