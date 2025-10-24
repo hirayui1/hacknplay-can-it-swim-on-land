@@ -1,5 +1,6 @@
-package com.company.project.controllers;
+package com.company.project.service;
 
+import com.company.project.data.Headline;
 import com.google.genai.Client;
 import com.google.genai.ResponseStream;
 import com.google.genai.types.Content;
@@ -12,9 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GAiService {
+public class AiTrashService {
 
-  public static String call(String input) {
+  public String ruin(String input) {
     String apiKey = System.getenv("AI_API_KEY");
     Client client = Client.builder().apiKey(apiKey).build();
     String model = "gemini-2.5-pro";

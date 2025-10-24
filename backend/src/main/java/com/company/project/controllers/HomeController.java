@@ -1,5 +1,6 @@
 package com.company.project.controllers;
 
+import com.company.project.service.AiTrashService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ public class HomeController {
 //                sb.append("%s\n\t%s").append(" ")
 //                        .append(headline.attr("title")).append(" ").append(headline.absUrl("href"));
 //            }
-            String aiTrash = GAiService.call(doc.title()); // .concat(sb.toString())
+            String aiTrash = AiTrashService.ruin(doc.title()); // .concat(sb.toString())
             return aiTrash;
         } catch (IOException e) {
             e.printStackTrace();
