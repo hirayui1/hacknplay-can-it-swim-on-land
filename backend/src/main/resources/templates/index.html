@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wikipedia Headlines</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0 40px;
+            background: linear-gradient(145deg, #1a1a1a, #2c2c2c); /* dark metallic gradient */
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #c0c0c0;
+            text-align: center;
+            margin: 40px 0 30px 0;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        /* Headline list */
+        ul {
+            list-style: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        li {
+            background: linear-gradient(145deg, #2c2c2c, #1f1f1f); /* subtle metallic card */
+            margin: 12px 0;
+            padding: 18px 22px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.7);
+        }
+
+        /* Headline title */
+        li span {
+            display: block;
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #e0e0e0;
+            margin-bottom: 6px;
+        }
+
+        /* Headline link */
+        a {
+            text-decoration: none;
+            color: #7ac7e3; /* subtle blue metallic link */
+            font-weight: 400;
+            word-break: break-all;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #a0dfff;
+        }
+
+        /* Error message */
+        p[th\\:if] {
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 30px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<h1>Today's Headlines</h1>
+<ul>
+    <li th:each="headline : ${headlines}">
+        <span th:text="${headline.title}"></span>
+        <a th:href="${headline.url}" th:text="${headline.url}"></a>
+    </li>
+</ul>
+
+<p th:if="${error}" th:text="${error}"></p>
+</body>
+</html>

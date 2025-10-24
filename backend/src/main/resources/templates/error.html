@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error - Wikipedia Headlines</title>
+    <style>
+        /* Global styles - same as index */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0 40px;
+            background: linear-gradient(145deg, #1a1a1a, #2c2c2c);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff6b6b;
+            font-weight: 400;
+            text-shadow: 1px 1px 3px #000;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #c0c0c0;
+            font-weight: 400;
+            margin-bottom: 40px;
+        }
+
+        /* Error container */
+        .error-box {
+            background: linear-gradient(145deg, #2c2c2c, #1f1f1f);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+            max-width: 700px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .error-box h3 {
+            color: #ff8080;
+            margin-top: 0;
+        }
+
+        .error-box p {
+            margin: 8px 0;
+            font-size: 0.95em;
+            color: #d0d0d0;
+        }
+
+        /* Button */
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 22px;
+            background: linear-gradient(145deg, #3a3a3a, #1f1f1f);
+            color: #7ac7e3;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.2s, box-shadow 0.2s, color 0.2s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.7);
+            color: #a0dfff;
+        }
+
+        /* Small info text */
+        footer {
+            margin-top: 50px;
+            font-size: 0.85em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+<h1>Something Went Wrong</h1>
+<h2>We couldn’t load the headlines.</h2>
+
+<div class="error-box">
+    <h3>Error Details</h3>
+    <p><strong>Status:</strong> <span th:text="${status}">500</span></p>
+    <p><strong>Error:</strong> <span th:text="${error}">Internal Server Error</span></p>
+    <p><strong>Message:</strong> <span th:text="${message}">Unexpected error occurred</span></p>
+    <p><strong>Path:</strong> <span th:text="${path}">/</span></p>
+    <p><strong>Timestamp:</strong> <span th:text="${timestamp}">N/A</span></p>
+</div>
+
+<a href="/" class="back-btn">← Back to Home</a>
+
+<footer>
+    <p>Use the details above to debug your issue. Check logs for stack traces if necessary.</p>
+</footer>
+</body>
+</html>

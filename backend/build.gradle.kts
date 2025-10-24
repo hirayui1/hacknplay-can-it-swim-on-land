@@ -26,6 +26,19 @@ dependencies {
     //implementation("org.springframework.session:spring-session-core")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+
+    // Spring Boot Starter Web (for controllers)
+    implementation("org.springframework.boot:spring-boot-starter-web")
+
+    // Thymeleaf templating engine
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+
+    // Optional: DevTools for live reload during development
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+    // Optional: Testing support
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+
 }
 
 tasks.test {
