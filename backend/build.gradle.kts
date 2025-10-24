@@ -18,6 +18,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.jsoup:jsoup:1.21.2")
     //implementation("org.springframework.boot:spring-boot-starter-freemarker")
     //implementation("org.springframework.boot:spring-boot-starter-jersey")
     //implementation("org.springframework.boot:spring-boot-starter-data-jpa")
