@@ -1,4 +1,9 @@
 package com.company.project.data;
 
-public record FeedItem(Headline headline, String ruin) {
+import java.io.Serial;
+import java.io.Serializable;
+
+public record FeedItem(Headline headline, String ruin) implements Serializable {
+  @Serial
+  private static final long serialVersionUID = 1L;
 }
