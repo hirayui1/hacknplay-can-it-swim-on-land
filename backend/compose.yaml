@@ -3,9 +3,11 @@ version: '3.3'
 services:
   backend:
     image: app:latest
+    restart: unless-stopped
+    environment:
+      - "SPRING_PROFILES_ACTIVE=dev"
     ports:
       - 8080:8080
-    privileged: true
   postgres:
     image: postgres:16.3
     container_name: data-postgres
@@ -17,10 +19,6 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./postgres/data:/var/lib/postgresql/data
+#      - ./postgres/data:/var/lib/postgresql/data
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-volumes:
-  db-data:
-secrets:
-  db-password:
-    file: db/password.txt
+    privileged: true

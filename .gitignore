@@ -1,4 +1,5 @@
 deploy.sh
+registry_push.sh
 
 .gradle
 build/
