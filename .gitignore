@@ -1,3 +1,6 @@
+deploy.sh
+registry_push.sh
+
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
