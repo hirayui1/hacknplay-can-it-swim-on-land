@@ -15,55 +15,51 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
 @AllArgsConstructor
 public class HomeController {
-  private final ErrorProcessor err = new ErrorProcessor();
-  private ProcessingService processingService;
+//  private final ErrorProcessor err = new ErrorProcessor();
+//  private ProcessingService processingService;
   private DataStore store;
 
-  @GetMapping("/")
-  public String showHome(Model model) {
-    List<Headline> headlines = processingService.processHeadlines(
-        new ExtractPayload("https://en.wikipedia.org/", "#mp-itn b a"));
-    if (headlines.isEmpty()) {
-      err.displayError(model, "Wikipedia");
-      return "error";
-    }
-    model.addAttribute("headlines", headlines);
-    return "index";
-  }
+//  @GetMapping("/test-gov-sites")
+//  public String showGovSites(Model model) {
+//    try {
+//        Document doc = Jsoup.connect("https://www.gov.pl/").get();
+//        System.out.println(doc.title());
+//    } catch (IOException e) {
+//        e.printStackTrace();
+//    }
+//        return "index";
+//    }
 
-  @GetMapping("/test-gov-sites")
-  public String showGovSites(Model model) {
-    try {
-      Document doc = Jsoup.connect("https://www.gov.pl/").get();
-      System.out.println(doc.title());
-    } catch (IOException e) {
-      e.printStackTrace();
+    @GetMapping("/law")
+    public String showLaw(Model model) {
+        List<FeedItem> feedItems = store.getFeedItems().get(DOMAIN.LAW);
+        model.addAttribute("feedItems", feedItems);
+        return "ai_list";
     }
-    return "index";
-  }
 
-  @GetMapping("/ai")
-  public String showAi(Model model) {
-    List<FeedItem> feedItems = store.getFeedItems().get(DOMAIN.LAW);
-    model.addAttribute("feedItems", feedItems);
-    return "aiindex";
-  }
-
-  @GetMapping("/hello")
-  public String showMarketRelated(Model model) {
-    List<Headline> headlines = processingService.processHeadlines(
-        new ExtractPayload("https://www.gov.pl/web/premier/wydarzenia", "div.title a"));
-    if (headlines.isEmpty()) {
-      err.displayError(model, "Gov.pl");
-      return "error";
+    @GetMapping("/company")
+    public String showCompany(Model model) {
+        List<FeedItem> feedItems = store.getFeedItems().get(DOMAIN.COMPANY_STATUS);
+        model.addAttribute("feedItems", feedItems);
+        return "ai_list";
     }
-    model.addAttribute("headlines", headlines);
-    return "index";
-  }
+
+    @GetMapping("/marketing")
+    public String showMarketing(Model model) {
+        List<FeedItem> feedItems = store.getFeedItems().get(DOMAIN.MARKETING);
+        model.addAttribute("feedItems", feedItems);
+        return "ai_list";
+    }
+
+    @GetMapping("/media")
+    public String showMedia(Model model) {
+        List<FeedItem> feedItems = store.getFeedItems().get(DOMAIN.MEDIA);
+        model.addAttribute("feedItems", feedItems);
+        return "ai_list";
+    }
 }
