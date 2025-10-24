@@ -14,7 +14,8 @@ public class DataStore {
   private final Map<DOMAIN, List<FeedItem>> feedItems = new HashMap<>();
   private final Map<DOMAIN, List<ExtractPayload>> urls = Map.of(
       DOMAIN.LAW, List.of(
-          new ExtractPayload("https://en.wikipedia.org/", "#mp-itn b a")
+          new ExtractPayload("https://en.wikipedia.org/", "#mp-itn b a"),
+          new ExtractPayload("https://www.gov.pl/web/premier/wydarzenia", "div.title a")
       )
   );
   private final Map<DOMAIN, String> prompts = Map.of(

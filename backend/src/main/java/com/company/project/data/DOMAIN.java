@@ -2,7 +2,7 @@ package com.company.project.data;
 
 public enum DOMAIN {
   LAW,
-//  COMPANY_STATUS,
-//  MARKETING,
-//  MEDIA
+  COMPANY_STATUS,
+  MARKETING,
+  MEDIA
 }

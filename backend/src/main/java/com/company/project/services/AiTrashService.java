@@ -7,14 +7,17 @@ import com.google.genai.types.GenerateContentConfig;
 import com.google.genai.types.GenerateContentResponse;
 import com.google.genai.types.Part;
 import com.google.genai.types.ThinkingConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class AiTrashService {
 
   public String ruin(String input) {
+    log.info("PROCESSING AI TRASH OF CONTENT {}", input);
     String apiKey = System.getenv("AI_API_KEY");
     Client client = Client.builder().apiKey(apiKey).build();
     String model = "gemini-2.5-flash-lite";
@@ -50,10 +53,12 @@ public class AiTrashService {
           f = f.concat("\n\n\n").concat(part.text().orElse(""));
         }
       }
+      log.info("AI TRASH NOT SO TRASHY");
       responseStream.close();
     } catch (Exception e) {
       f = "Sorry not AI today ;(";
       e.printStackTrace();
+      log.info("AI TRASH FAILURE");
     }
     return (f);
   }
