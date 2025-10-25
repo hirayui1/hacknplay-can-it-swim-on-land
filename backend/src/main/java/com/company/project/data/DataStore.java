@@ -47,20 +47,19 @@ public class DataStore {
 
   private final Map<DOMAIN, String> prompts = Map.of(
       DOMAIN.LAW, """
-          "Decode this legal mumbo jumbo for me, but explain it like I'm a five-year-old who's also a mob boss. Keep it serious, formal, and cold. I need the bottom line, fast."
+          "Analyze and decode this legal feed. Keep it serious, formal, and professional. I need it to be concise yet informing."
           Constrain the return to a paragraph.
           TITLE: %s
           CONTENT: %s
           """,
       DOMAIN.COMPANY_STATUS, """
-          "Gimme the dirt. Is this company printing money or circling the drain? I want the juicy details, the kind of stuff they'd whisper in a smoky backroom. Spill it.
-           Do this but not with 'PLAY', they are the best and all fluff.
+          "Analyze and comment on the significance of actions taken, point out the potential risks and benefits."
            Constrain the return to a paragraph.
           TITLE: %s
           CONTENT: %s
           """,
       DOMAIN.MEDIA, """
-          "My brain is basically TikTok at this point. Give me the summary in 10 seconds or less. I want the highlights, the drama, the 'OMG, what?!' moments. Don't bore me with the details."
+          "Give me the summary of this feed, keep it concise and only point out the important parts"
           Constrain the return to a paragraph.
           TITLE: %s
           CONTENT: %s

@@ -18,21 +18,19 @@ import java.util.List;
 @Slf4j
 public class ProcessingService {
 
-  private AiTrashService aiTrashService;
+  private AiService aiService;
   private final ObjectMapper objectMapper;
 
   public List<Headline> processHeadlines(ExtractPayload payload, String prompt) {
     log.info("PROCESSING payload: {}", payload.url());
     try {
-      List<Headline> headlines = new ArrayList<>();
       Document doc = Jsoup.connect(payload.url()).get();
       log.info("EXTRACTED doc: {}", doc.title());
-//      Elements newsHeadlines = doc.select(payload.cssSelector());
-      String jsonLst = aiTrashService.ruin(prompt.concat(doc.toString()));
+      String jsonLst = aiService.ruin(prompt.concat(doc.toString()));
       jsonLst = jsonLst.replace("```json", "");
       jsonLst = jsonLst.replace("```", "");
       jsonLst = jsonLst.replace("\n", "").replace("\r", "");
-      Thread.sleep(100000);
+      Thread.sleep(1000);
       return objectMapper.readValue(jsonLst, new TypeReference<List<Headline>>() {});
 //      for (Element headline : newsHeadlines) {
 //        headlines.add(new Headline(headline.attr("title"),
@@ -41,7 +39,7 @@ public class ProcessingService {
 //      return headlines;
     } catch (Exception e) {
       e.printStackTrace();
-      return List.of(new Headline(payload.url(), "Url read error", "That is sad too", 10));
+      return List.of(new Headline(payload.url(), "Error", "Unexpected Occurence", 10));
     }
   }
 }

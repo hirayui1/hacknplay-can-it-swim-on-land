@@ -18,7 +18,7 @@ public class DataInitializerService {
   private DataStore store;
   private SerializerService serializer;
   private ProcessingService processingService;
-  private AiTrashService aiTrashService;
+  private AiService aiTrashService;
 
   @PostConstruct
   void initialize() {
