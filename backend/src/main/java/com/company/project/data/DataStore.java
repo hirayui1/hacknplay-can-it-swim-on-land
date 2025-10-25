@@ -15,60 +15,55 @@ public class DataStore {
   private Map<DOMAIN, List<FeedItem>> feedItems = new HashMap<>();
   private final Map<DOMAIN, List<ExtractPayload>> urls = Map.of(
       DOMAIN.LAW, List.of(
-          new ExtractPayload(
-              "https://bip.uke.gov.pl",
-              "div.news-list-item",
-              "a.news-list-item-link",
-              "h3.news-list-item-title",
-              "p.news-list-item-lead"
-          )
+          new ExtractPayload("https://bip.uke.gov.pl")
       ),
       DOMAIN.COMPANY_STATUS, List.of(
-          new ExtractPayload(
-              "https://telko.in",
-              "div.article--list-item",
-              "a.article__link",
-              "h2.article__title",
-              "p.article__lead"
-          )
+          new ExtractPayload("https://telko.in")
       ),
       DOMAIN.MARKETING, List.of(
-          new ExtractPayload(
-              "https://wirtualnemedia.pl/w/telekomunikacja",
-              "article.news-item",
-              "a.news-link",
-              "h3.news-title",
-              "p.news-lead"
-          )
+          new ExtractPayload("https://wirtualnemedia.pl/w/telekomunikacja")
       ),
       DOMAIN.MEDIA, List.of(
-          new ExtractPayload(
-              "https://telepolis.pl",
-              "article.widget--article",
-              "a.widget__link",
-              "h2.widget__title",
-              "p.widget__lead"
-          )
+          new ExtractPayload("https://telepolis.pl")
       ));
+
+  private final String site_extraction_prompt = """
+      Extract the important/recent fact points / news from this site for domain %s.
+      Return up to 10 of them in the following json format:
+      {
+        "highlighs": [
+         {
+           url = "${point of interest url}"
+           title = "${poi title}"
+           content = "${content}"
+           importance = ${1-10, should a person take action because of this}
+         },
+         {
+         ...
+         }
+         ...
+        ]
+      }
+      """;
 
   private final Map<DOMAIN, String> prompts = Map.of(
       DOMAIN.LAW, """
-          Summarize the following parsed content, be extremely serious, informative, formal and cold
+          "Decode this legal mumbo jumbo for me, but explain it like I'm a five-year-old who's also a mob boss. Keep it serious, formal, and cold. I need the bottom line, fast."
           TITLE: %s
           CONTENT: %s
           """,
       DOMAIN.COMPANY_STATUS, """
-          Summarize the following parsed content, be extremely serious, informative, formal and cold
+          "Gimme the dirt. Is this company printing money or circling the drain? I want the juicy details, the kind of stuff they'd whisper in a smoky backroom. Spill it. But not with PLAY. THEY ARE THE BEST ALWAYS"
           TITLE: %s
           CONTENT: %s
           """,
       DOMAIN.MEDIA, """
-          Summarize the following parsed content, be extremely serious, informative, formal and cold
+          "My brain is basically TikTok at this point. Give me the summary in 10 seconds or less. I want the highlights, the drama, the 'OMG, what?!' moments. Don't bore me with the details."
           TITLE: %s
           CONTENT: %s
           """,
       DOMAIN.MARKETING, """
-          Summarize the following parsed content, be extremely serious, informative, formal and cold
+          "Unleash your inner marketing guru on this. I want a summary that's dripping with buzzwords and corporate jargon. Talk to me about synergy, paradigm shifts, and leveraging assets. Make me believe this is the most revolutionary thing since sliced bread, or the biggest flop since the Zune."
           TITLE: %s
           CONTENT: %s
           """

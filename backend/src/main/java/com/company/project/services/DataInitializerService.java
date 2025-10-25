@@ -24,14 +24,15 @@ public class DataInitializerService {
   void initialize() {
     if (serializer.deserializeDataOnStartup() == 1) {
       Map<DOMAIN, List<FeedItem>> headlines = store.getFeedItems();
-      for (DOMAIN value : DOMAIN.values()) {
-        headlines.put(value, store.getUrls().get(value).stream()
-            .map(ePayload -> processingService.processHeadlines(ePayload))
+      for (DOMAIN domain : DOMAIN.values()) {
+        headlines.put(domain, store.getUrls().get(domain).stream()
+            .map(ePayload -> processingService.processHeadlines(ePayload,
+                store.getSite_extraction_prompt().formatted(domain)))
             .flatMap(Collection::stream)
             .map(headline -> new FeedItem(
                 headline,
                 aiTrashService.ruin(store.prepare_prompt(
-                    store.getPrompts().get(value), headline))
+                    store.getPrompts().get(domain), headline))
             )).toList());
       }
     }

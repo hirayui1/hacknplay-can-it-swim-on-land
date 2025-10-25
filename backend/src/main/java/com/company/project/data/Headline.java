@@ -6,7 +6,8 @@ import java.io.Serializable;
 public record Headline(
     String url,
     String title,
-    String content
+    String content,
+    Integer relevance
 ) implements Serializable {
   @Serial
   private static final long serialVersionUID = 1L;
