@@ -27,7 +27,7 @@ public class DataInitializerService {
       for (DOMAIN domain : DOMAIN.values()) {
         headlines.put(domain, store.getUrls().get(domain).stream()
             .map(ePayload -> processingService.processHeadlines(ePayload,
-                store.getSite_extraction_prompt().formatted(domain)))
+                store.getSite_extraction_prompt().formatted(ePayload.url(), domain)))
             .flatMap(Collection::stream)
             .map(headline -> new FeedItem(
                 headline,

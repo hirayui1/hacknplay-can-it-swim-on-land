@@ -14,6 +14,9 @@ import java.util.Map;
 public class DataStore {
   private Map<DOMAIN, List<FeedItem>> feedItems = new HashMap<>();
   private final Map<DOMAIN, List<ExtractPayload>> urls = Map.of(
+      DOMAIN.MEDIA, List.of(
+          new ExtractPayload("https://https://www.wirtualnemedia.pl/wyniki?zapytanie=telekomunikacja")
+      ),
       DOMAIN.LAW, List.of(
           new ExtractPayload("https://bip.uke.gov.pl")
       ),
@@ -21,19 +24,16 @@ public class DataStore {
           new ExtractPayload("https://telko.in")
       ),
       DOMAIN.MARKETING, List.of(
-          new ExtractPayload("https://wirtualnemedia.pl/w/telekomunikacja")
-      ),
-      DOMAIN.MEDIA, List.of(
-          new ExtractPayload("https://telepolis.pl")
-      ));
+          new ExtractPayload("https://mmponline.pl/szukaj/?OK=suchen&OK=suchen&i_sortfl=pubdate&i_sortd=desc&i_q=telekomunikacja")
+      )
+  );
 
   private final String site_extraction_prompt = """
-      Extract the important/recent fact points / news from this site for domain %s.
+      Extract the important/recent fact points / news from this site %s for domain %s.
       Return up to 10 of them in the following json format:
-      {
-        "highlighs": [
+       [
          {
-           url = "${point of interest url}"
+           url = "${point of interest url, if partial reconstruct from original}"
            title = "${poi title}"
            content = "${content}"
            importance = ${1-10, should a person take action because of this}
@@ -43,22 +43,25 @@ public class DataStore {
          }
          ...
         ]
-      }
       """;
 
   private final Map<DOMAIN, String> prompts = Map.of(
       DOMAIN.LAW, """
           "Decode this legal mumbo jumbo for me, but explain it like I'm a five-year-old who's also a mob boss. Keep it serious, formal, and cold. I need the bottom line, fast."
+          Constrain the return to a paragraph.
           TITLE: %s
           CONTENT: %s
           """,
       DOMAIN.COMPANY_STATUS, """
-          "Gimme the dirt. Is this company printing money or circling the drain? I want the juicy details, the kind of stuff they'd whisper in a smoky backroom. Spill it. But not with PLAY. THEY ARE THE BEST ALWAYS"
+          "Gimme the dirt. Is this company printing money or circling the drain? I want the juicy details, the kind of stuff they'd whisper in a smoky backroom. Spill it.
+           Do this but not with 'PLAY', they are the best and all fluff.
+           Constrain the return to a paragraph.
           TITLE: %s
           CONTENT: %s
           """,
       DOMAIN.MEDIA, """
           "My brain is basically TikTok at this point. Give me the summary in 10 seconds or less. I want the highlights, the drama, the 'OMG, what?!' moments. Don't bore me with the details."
+          Constrain the return to a paragraph.
           TITLE: %s
           CONTENT: %s
           """,

@@ -17,7 +17,7 @@ import java.util.List;
 public class AiTrashService {
 
   public String ruin(String input) {
-    log.info("PROCESSING AI TRASH OF CONTENT {}", input);
+//    log.info("PROCESSING AI TRASH OF CONTENT {}", input);
     String apiKey = System.getenv("AI_API_KEY");
     Client client = Client.builder().apiKey(apiKey).build();
     String model = "gemini-2.5-flash-lite";
@@ -53,12 +53,12 @@ public class AiTrashService {
           f = f.concat("\n\n\n").concat(part.text().orElse(""));
         }
       }
-      log.info("AI TRASH NOT SO TRASHY");
+      log.info("AI TRASH NOT SO TRASHY {}", f);
       responseStream.close();
     } catch (Exception e) {
       f = "Sorry not AI today ;(";
       e.printStackTrace();
-      log.info("AI TRASH FAILURE");
+      log.info("AI TRASH FAILURE {}", f);
     }
     return (f);
   }
