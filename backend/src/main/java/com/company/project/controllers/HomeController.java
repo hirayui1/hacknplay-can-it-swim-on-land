@@ -24,29 +24,20 @@ public class HomeController {
             err.displayError(model, "Wikipedia");
             return "error";
         }
+        headlines.stream().forEach(System.out::println);
         model.addAttribute("headlines", headlines);
-        return "index";
-    }
-
-    @GetMapping("/test-gov-sites")
-    public String showGovSites(Model model) {
-        try {
-            Document doc = Jsoup.connect("https://www.gov.pl/").get();
-            System.out.println(doc.title());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return "index";
     }
 
     @GetMapping("/hello")
     public String showMarketRelated(Model model) {
-        List<Headline> headlines = ProcessingService.processHeadlines("https://www.gov.pl/web/premier/wydarzenia", "div.title a");
+        List<Headline> headlines = ProcessingService.processHeadlines("https://www.telko.in//wydarzenia", "article-title h3");
         if (headlines.isEmpty()) {
-            err.displayError(model, "Gov.pl");
+            err.displayError(model, "telko.in");
             return "error";
         }
+        headlines.stream().forEach(System.out::println);
         model.addAttribute("headlines", headlines);
-        return "index";
+        return "hello";
     }
 }

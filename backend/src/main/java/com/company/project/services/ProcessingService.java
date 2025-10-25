@@ -16,12 +16,16 @@ public class ProcessingService {
     public static List<Headline> processHeadlines(String url, String query) {
         try {
             List<Headline> headlines = new ArrayList<>();
-            Document doc = Jsoup.connect(url).get();
+            Document doc = Jsoup.connect(url)
+                    .userAgent("Mozilla/5.0 Gecko/20100101 Firefox/21.0")
+                    .timeout(0)
+                    .get();
             System.out.println(doc.title());
-            Elements newsHeadlines = doc.select(query);
-
+            Elements newsHeadlines = doc.select(query); // this is quite useless as everybody name their css variables differently
+            String title;
+            String href;
             for (Element headline : newsHeadlines) {
-                headlines.add(new Headline(headline.attr("title"),
+                    headlines.add(new Headline(headline.attr("title"),
                         headline.absUrl("href")));
             }
             return headlines;
