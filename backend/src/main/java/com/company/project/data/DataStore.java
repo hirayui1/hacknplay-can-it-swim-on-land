@@ -15,7 +15,7 @@ public class DataStore {
   private Map<DOMAIN, List<FeedItem>> feedItems = new HashMap<>();
   private final Map<DOMAIN, List<ExtractPayload>> urls = Map.of(
       DOMAIN.MEDIA, List.of(
-          new ExtractPayload("https://https://www.wirtualnemedia.pl/wyniki?zapytanie=telekomunikacja")
+          new ExtractPayload("https://www.wirtualnemedia.pl/wyniki?zapytanie=telekomunikacja")
       ),
       DOMAIN.LAW, List.of(
           new ExtractPayload("https://bip.uke.gov.pl")
@@ -36,7 +36,7 @@ public class DataStore {
            url = "${point of interest url, if partial reconstruct from original}"
            title = "${poi title}"
            content = "${content}"
-           importance = ${1-10, should a person take action because of this}
+           importance = ${1-10 level of should a person take action because of this}
          },
          {
          ...

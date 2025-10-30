@@ -22,7 +22,7 @@ public class DataInitializerService {
 
   @PostConstruct
   void initialize() {
-    if (serializer.deserializeDataOnStartup() == 1) {
+ //   if (serializer.deserializeDataOnStartup() == 1) {
       Map<DOMAIN, List<FeedItem>> headlines = store.getFeedItems();
       for (DOMAIN domain : DOMAIN.values()) {
         headlines.put(domain, store.getUrls().get(domain).stream()
@@ -35,6 +35,6 @@ public class DataInitializerService {
                     store.getPrompts().get(domain), headline))
             )).toList());
       }
-    }
+   // }
   }
 }

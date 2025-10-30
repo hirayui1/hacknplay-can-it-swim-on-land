@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -32,8 +33,9 @@ public class ProcessingService {
       jsonLst = jsonLst.replace("```json", "");
       jsonLst = jsonLst.replace("```", "");
       jsonLst = jsonLst.replace("\n", "").replace("\r", "");
-      Thread.sleep(100000);
-      return objectMapper.readValue(jsonLst, new TypeReference<List<Headline>>() {});
+  //    Thread.sleep(100000);
+      List<Headline> lines = objectMapper.readValue(jsonLst, new TypeReference<List<Headline>>() {});
+      return lines;
 //      for (Element headline : newsHeadlines) {
 //        headlines.add(new Headline(headline.attr("title"),
 //            headline.absUrl("href"), headline.attr("content")));

@@ -3,4 +3,5 @@ tag="latest"
 
 #gradle build
 docker build -t "${image_name}:${tag}" .
-docker-compose -f compose.yaml up --build -d
+# docker-compose -f compose.yaml up
+# docker-compose -f compose.yaml down

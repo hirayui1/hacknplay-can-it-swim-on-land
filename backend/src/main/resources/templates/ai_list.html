@@ -164,7 +164,7 @@
 <ul>
     <li th:each="item : ${feedItems}">
     <span th:text="${item.headline.title}"></span>
-        <span th:text="${item.headline.relevance}"></span>
+        <span th:text="${item.headline.relevance()}"></span>
         <span th:text="${item.headline.content}"></span>
         <span th:text="${item.ruin}"></span>
         <a th:href="${item.headline.url}" th:text="${item.headline.url}"></a>

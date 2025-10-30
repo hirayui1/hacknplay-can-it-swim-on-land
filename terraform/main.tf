@@ -30,7 +30,7 @@ resource "scaleway_container" "spring_api_container" {
   cpu_limit    = 250
   memory_limit = 512
   min_scale    = 1
-  max_scale    = 2
+  max_scale    = 1
   environment_variables = {
     "SPRING_PROFILES_ACTIVE" = "prod"
     "AI_API_KEY"             = var.AI_API_KEY
