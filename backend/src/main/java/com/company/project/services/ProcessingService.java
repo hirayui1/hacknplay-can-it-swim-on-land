@@ -12,14 +12,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @AllArgsConstructor
 @Slf4j
 public class ProcessingService {
 
-  private AiTrashService aiTrashService;
+  private AiService aiService;
   private final ObjectMapper objectMapper;
 
   public List<Headline> processHeadlines(ExtractPayload payload, String prompt) {
@@ -28,14 +27,12 @@ public class ProcessingService {
       List<Headline> headlines = new ArrayList<>();
       Document doc = Jsoup.connect(payload.url()).get();
       log.info("EXTRACTED doc: {}", doc.title());
-//      Elements newsHeadlines = doc.select(payload.cssSelector());
-      String jsonLst = aiTrashService.ruin(prompt.concat(doc.toString()));
+      String jsonLst = aiService.ruin(prompt.concat(doc.toString()));
       jsonLst = jsonLst.replace("```json", "");
       jsonLst = jsonLst.replace("```", "");
       jsonLst = jsonLst.replace("\n", "").replace("\r", "");
-  //    Thread.sleep(100000);
-      List<Headline> lines = objectMapper.readValue(jsonLst, new TypeReference<List<Headline>>() {});
-      return lines;
+      Thread.sleep(1000);
+      return objectMapper.readValue(jsonLst, new TypeReference<List<Headline>>() {});
 //      for (Element headline : newsHeadlines) {
 //        headlines.add(new Headline(headline.attr("title"),
 //            headline.absUrl("href"), headline.attr("content")));
