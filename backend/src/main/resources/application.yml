@@ -1,0 +1,9 @@
+server:
+  port: 8080
+spring:
+  main:
+    banner-mode: off
+
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %highlight(%-5level) %logger{36} - %msg%n"

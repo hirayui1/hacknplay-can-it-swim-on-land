@@ -1,7 +1,7 @@
 plugins {
-    application
-    id("org.springframework.boot") version "3.3.5"
-    id("io.spring.dependency-management") version "1.1.6"
+   application
+   id("org.springframework.boot") version "3.3.5"
+   id("io.spring.dependency-management") version "1.1.6"
 }
 
 group = "org.example"
@@ -9,38 +9,28 @@ version = "1.0-SNAPSHOT"
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
-    archiveFileName.set("app.jar")
+   archiveFileName.set("app.jar")
 }
 
 repositories {
-    mavenCentral()
+   mavenCentral()
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.jsoup:jsoup:1.21.2")
-    //implementation("org.springframework.boot:spring-boot-starter-freemarker")
-    //implementation("org.springframework.boot:spring-boot-starter-jersey")
-    //implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-//    runtimeOnly("org.postgresql:postgresql")
-    //implementation("org.springframework.session:spring-session-core")
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-
-    // Spring Boot Starter Web (for controllers)
-    implementation("org.springframework.boot:spring-boot-starter-web")
-
-    // Thymeleaf templating engine
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-
-    // Optional: DevTools for live reload during development
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
-
-    // Optional: Testing support
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+   implementation("org.springframework.boot:spring-boot-starter-web")
+   implementation("org.jsoup:jsoup:1.21.2")
+   testImplementation(platform("org.junit:junit-bom:5.10.0"))
+   testImplementation("org.junit.jupiter:junit-jupiter")
+   implementation("org.springframework.boot:spring-boot-starter-web")
+   implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+   developmentOnly("org.springframework.boot:spring-boot-devtools")
+   testImplementation("org.springframework.boot:spring-boot-starter-test")
+   compileOnly("org.projectlombok:lombok:1.18.32")
+   annotationProcessor("org.projectlombok:lombok:1.18.32")
+   implementation("com.google.genai:google-genai:1.24.0")
 
 }
 
 tasks.test {
-    useJUnitPlatform()
+   useJUnitPlatform()
 }

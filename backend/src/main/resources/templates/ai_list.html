@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Wikipedia Headlines</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0 40px;
+            background: linear-gradient(145deg, #1a1a1a, #2c2c2c);
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        /* Header styles */
+        header {
+            background: #1f1f1f;
+            padding: 15px 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        header a {
+            color: #7ac7e3;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1em;
+            transition: color 0.2s;
+        }
+
+        header a:hover {
+            color: #a0dfff;
+        }
+
+        h1 {
+            color: #c0c0c0;
+            text-align: center;
+            margin: 40px 0 30px 0;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px #000;
+            letter-spacing: 1px;
+        }
+
+        /* Headline list */
+        ul {
+            list-style: none;
+            padding: 0;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        li {
+            background: linear-gradient(145deg, #2c2c2c, #1f1f1f);
+            margin: 16px 0;
+            padding: 22px 26px;
+            border-radius: 14px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            animation: fadeIn 0.8s ease;
+        }
+
+        li:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.7);
+        }
+
+        /* Headline title */
+        li span:first-of-type {
+            display: block;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+            text-shadow: 0 0 8px #7ac7e3, 0 0 16px #7ac7e3;
+            letter-spacing: 0.5px;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        /* Headline content */
+        li span:nth-of-type(2) {
+            display: block;
+            font-size: 1.05em;
+            font-weight: 400;
+            color: #d0d0d0;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            opacity: 0.9;
+            animation: fadeIn 1.2s ease both;
+        }
+
+        /* Ruin box */
+        li span:nth-of-type(3) {
+            display: block;
+            background: rgba(50, 50, 50, 0.8);
+            border: 1px solid #555;
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            color: #b0b0b0;
+            box-shadow: inset 0 0 8px rgba(122, 199, 227, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2.5s infinite;
+        }
+
+        li span:nth-of-type(3):hover {
+            box-shadow: inset 0 0 14px rgba(122, 199, 227, 0.5);
+            background: rgba(60, 60, 60, 0.9);
+        }
+
+        /* Headline link */
+        a {
+            text-decoration: none;
+            color: #7ac7e3;
+            font-weight: 400;
+            word-break: break-all;
+            transition: color 0.2s, text-shadow 0.2s;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #a0dfff;
+            text-shadow: 0 0 5px #7ac7e3;
+        }
+
+        /* Error message */
+        p[th\\:if] {
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 30px;
+            font-weight: 500;
+        }
+
+        /* Animations */
+        @keyframes glow {
+            from { text-shadow: 0 0 6px #7ac7e3, 0 0 12px #7ac7e3; }
+            to { text-shadow: 0 0 12px #a0dfff, 0 0 24px #7ac7e3; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: inset 0 0 8px rgba(122, 199, 227, 0.3); }
+            50% { box-shadow: inset 0 0 14px rgba(160, 223, 255, 0.6); }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <a href="/law">Law</a>
+    <a href="/company">Company</a>
+    <a href="/marketing">Marketing</a>
+    <a href="/media">Media</a>
+</header>
+
+<h1>Today's Headlines</h1>
+
+<ul>
+    <li th:each="item : ${feedItems}">
+    <span th:text="${item.headline.title}"></span>
+        <span th:text="${item.headline.relevance()}"></span>
+        <span th:text="${item.headline.content}"></span>
+        <span th:text="${item.ruin}"></span>
+        <a th:href="${item.headline.url}" th:text="${item.headline.url}"></a>
+    </li>
+</ul>
+
+<p th:if="${error}" th:text="${error}"></p>
+</body>
+</html>
